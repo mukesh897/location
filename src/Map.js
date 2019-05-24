@@ -1,53 +1,95 @@
-import React from "react";
-import L from "leaflet";
-// make sure that plugins are imported *after* Leaflet
-import "leaflet-contextmenu";
-// import plugin's css (if present)
-// note, that this is only one of possible ways to load css
-import "leaflet-contextmenu/dist/leaflet.contextmenu.css";
+import React, {Component} from 'react';
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
-const style = {
-  width: "50px",
-  height: "50px"
-};
+const Map = ReactMapboxGl({
+  accessToken: "pk.eyJ1IjoibXVrZXNoODk3IiwiYSI6ImNqdzB0czNyeTBkb2Y0YXBzaGtybWN1OXMifQ.FzFYZ1t6Fe0TV-Csb1bDlA"
+});
 
-class Map extends React.Component {
-  componentDidMount() {
-    // create map
-    this.map = L.map("map", {
-      // plugin code is assigned to Leaflet after import
-      // so we can immediately use plugins features
-      contextmenu: true,
-      contextmenuItems: [
-        {
-          text: "Zoom in",
-          callback: this.zoomIn
-        },
-        {
-          text: "Zoom out",
-          callback: this.zoomOut
-        }
-      ],
-      center: [45.3, 20.154007],
-      zoom: 0,
-      layers: [
-        L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        })
-      ]
-    });
-  }
+class MapBox extends Component {
 
-  zoomIn = () => {
-    this.map.zoomIn();
+  state = {
+    viewport: {
+      width: 400,
+      height: 400,
+      latitude: 37.7577,
+      longitude: -122.4376,
+      zoom: 8
+    }
   };
-  zoomOut = () => {
-    this.map.zoomOut();
-  };
+
   render() {
-    return <div id="map" style={style} />;
+    return (
+      <Map
+        style="mapbox://styles/mapbox/streets-v9"
+        containerStyle={{
+          height: "500px",
+          width: "500px"
+        }}>
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "marker-15" }}>
+            <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
+          </Layer>
+      </Map>
+    );
   }
 }
 
-export default Map;
+export default MapBox;
+
+
+
+// import React from "react";
+// import L from "leaflet";
+// // make sure that plugins are imported *after* Leaflet
+// import "leaflet-contextmenu";
+// // import plugin's css (if present)
+// // note, that this is only one of possible ways to load css
+// import "leaflet-contextmenu/dist/leaflet.contextmenu.css";
+//
+// const style = {
+//   width: "50px",
+//   height: "50px"
+// };
+//
+// class Map extends React.Component {
+//   componentDidMount() {
+//     // create map
+//     this.map = L.map("map", {
+//       // plugin code is assigned to Leaflet after import
+//       // so we can immediately use plugins features
+//       contextmenu: true,
+//       contextmenuItems: [
+//         {
+//           text: "Zoom in",
+//           callback: this.zoomIn
+//         },
+//         {
+//           text: "Zoom out",
+//           callback: this.zoomOut
+//         }
+//       ],
+//       center: [45.3, 20.154007],
+//       zoom: 0,
+//       layers: [
+//         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+//           attribution:
+//             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//         })
+//       ]
+//     });
+//   }
+//
+//   zoomIn = () => {
+//     this.map.zoomIn();
+//   };
+//   zoomOut = () => {
+//     this.map.zoomOut();
+//   };
+//   render() {
+//     return <div id="map" style={style} />;
+//   }
+// }
+//
+// export default Map;
