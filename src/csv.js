@@ -227,11 +227,43 @@ export default class Csv extends Component {
       console.log("Second page")
       console.log(pages[1])
 
+      this.generateAnalyticsData(data)
+
       this.setState({
         fileText: data,
         tableData: dataArray,
         pages: pages,
       })
+    }
+
+    generateAnalyticsData = (data) => {
+      var analyticsData = {
+        bookingMedium: {
+          online: 0,
+          mobileSite: 0
+        },
+        travelType: [0,0,0],
+        package: [0,0,0,0,0,0,0],
+      }
+
+      for (var i = 0 ; i < data.length ; i++) {
+        var trip = data[i]
+        if (trip.mobile_site_booking === "1") {
+          analyticsData["bookingMedium"]["mobileSite"]++;
+        }
+        if (trip.online_booking === "1") {
+          analyticsData["bookingMedium"]["online"]++;
+        }
+        if (trip.travel_type_id !== 'NULL') {
+          analyticsData["travelType"][trip.travel_type_id - 1]++;
+        }
+        if (trip.package_id !== 'NULL') {
+          analyticsData["package"][trip.package_id - 1]++;
+        }
+      }
+
+      this.props.setAnalyticsData(analyticsData);
+
     }
 
     generateNextPage = () => {

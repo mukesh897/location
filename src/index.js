@@ -17,9 +17,24 @@ class App extends React.Component {
     super();
     this.state = {
       latitude: 12.9716,
-      longitude: 77.5946
+      longitude: 77.5946,
+      analyticsData: {
+        bookingMedium: {
+          online: 0,
+          mobileSite: 0
+        },
+        travelType: [0,0,0],
+        package: [0,0,0,0,0,0,0],
+      },
     }
   }
+
+  setAnalyticsData = (data) => {
+    this.setState({
+      analyticsData: data
+    })
+  }
+
   setLatLong = (lat,long) => {
     console.log("Setting lat long")
     console.log(lat + " " + long);
@@ -35,7 +50,8 @@ class App extends React.Component {
     return(
     <Grid container>
       <Grid item xs={4}>
-        <Csv setLatLong={this.setLatLong}/>
+        <Csv setLatLong={this.setLatLong}
+        setAnalyticsData={this.setAnalyticsData}/>
       </Grid>
       <Grid item xs={4}>
         <MapBox
@@ -44,7 +60,8 @@ class App extends React.Component {
          />
        </Grid>
       <Grid item xs={4}>
-        <Charts/>
+        <Charts
+        analyticsData={this.state.analyticsData}/>
       </Grid>
     </Grid>
   )

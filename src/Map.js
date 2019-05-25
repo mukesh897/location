@@ -69,7 +69,7 @@ class MapBox extends Component {
           center = {latlong}
           containerStyle={{
             height: "500px",
-            width: "500px"
+            width: "300px"
           }}>
           <Layer
             type="symbol"
