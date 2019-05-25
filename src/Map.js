@@ -63,21 +63,23 @@ class MapBox extends Component {
         //     <Feature coordinates={latlong}/>
         //   </Layer>
         // </Map>
-        <Map
-          style="mapbox://styles/mapbox/streets-v8"
-          zoom={zoom}
-          center = {latlong}
-          containerStyle={{
-            height: "500px",
-            width: "300px"
-          }}>
-          <Layer
-            type="symbol"
-            id="marker"
-            layout={{ "icon-image": "marker-15" }}>
-            <Feature coordinates={latlong}/>
-          </Layer>
-        </Map>
+        <div className="left-padded">
+          <Map
+            style="mapbox://styles/mapbox/streets-v8"
+            zoom={zoom}
+            center = {latlong}
+            containerStyle={{
+              height: "500px",
+              width: "300px"
+            }}>
+            <Layer
+              type="symbol"
+              id="marker"
+              layout={{ "icon-image": "marker-15" }}>
+              <Feature coordinates={latlong}/>
+            </Layer>
+          </Map>
+        </div>
     );
   }
 }

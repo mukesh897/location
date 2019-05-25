@@ -25,6 +25,26 @@ export default class Charts extends React.Component{
     var perc6 = Math.round((package6/packageTotal) * 100)
     var perc7 = Math.round((package7/packageTotal) * 100)
 
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Percentage of trips by different travel packages"
+      },
+      data: [{
+                type: "pie",
+                dataPoints: [
+                    { label: "4hrs & 40kms",  y: perc1  },
+                    { label: "8hrs & 80kms", y: perc2  },
+                    { label: "6hrs & 60kms", y: perc3  },
+                    { label: "10hrs & 100kms",  y: perc4  },
+                    { label: "5hrs & 50kms",  y: perc5  },
+                    { label: "3hrs & 30kms",  y: perc6  },
+                    { label: "12hrs & 120kms",  y: perc7  },
+                ]
+       }]
+   }
 
 
 
@@ -41,6 +61,8 @@ export default class Charts extends React.Component{
       <Progress bar color="danger" value={perc6}>3hrs & 30kms</Progress>
       <Progress bar color="danger" value={perc7}>12hrs & 120kms</Progress>
       </Progress>
+
+      <CanvasJSChart options = {options}/>
       </div>
     )
   }
@@ -50,6 +72,7 @@ export default class Charts extends React.Component{
     var travelType2 = analyticsData["travelType"][1]
     var travelType3 = analyticsData["travelType"][2]
     var travelTypeTotal = travelType1 + travelType2 + travelType3
+    // console.log("Travel percentages are " + travelType1 + " " + travelType2 + " " + travelPerc3 + " total " + travelTypeTotal);
     var travelPerc1 = Math.round ((travelType1/travelTypeTotal) * 100)
     var travelPerc2 = Math.round ((travelType2/travelTypeTotal) * 100)
     var travelPerc3 = Math.round ((travelType3/travelTypeTotal) * 100)
@@ -89,24 +112,6 @@ export default class Charts extends React.Component{
 
   render(){
     // var CanvasJSReact = require('./canvasjs.react');
-    var CanvasJS = CanvasJSReact.CanvasJS;
-    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-    const options = {
-      title: {
-        text: "Basic Column Chart in React"
-      },
-      data: [{
-                type: "column",
-                dataPoints: [
-                    { label: "Apple",  y: 10  },
-                    { label: "Orange", y: 15  },
-                    { label: "Banana", y: 25  },
-                    { label: "Mango",  y: 30  },
-                    { label: "Grape",  y: 28  }
-                ]
-       }]
-   }
 
 
 
@@ -123,7 +128,7 @@ export default class Charts extends React.Component{
       <div>
         {this.generateTravelTypeVis(analyticsData)}
       </div>
-      <CanvasJSChart options = {options}/>
+
     </div>
     )
   }

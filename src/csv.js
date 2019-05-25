@@ -353,8 +353,11 @@ export default class Csv extends Component {
           <Pagination>{this.pageItems}</Pagination>
 
           <CustomTable
+            tableHeaders = {keys}
             data = {this.state.currentPage || sampleData}
             setLatLong = {this.props.setLatLong}
+            showAllToPoints = {this.props.showAllToPoints}
+            showAllFromPoints = {this.props.showAllFromPoints}
           />
 
           {/* <DataTable

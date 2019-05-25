@@ -46,14 +46,25 @@ class App extends React.Component {
     console.log(this.state);
   }
 
+  showAllToPoints = () => {
+
+  }
+
+  showAllFromPoints = () => {
+
+  }
+
   render() {
     return(
-    <Grid container>
-      <Grid item xs={4}>
+    <Grid container spacing={2}>
+      <Grid item xs={4} className="right-padded">
         <Csv setLatLong={this.setLatLong}
-        setAnalyticsData={this.setAnalyticsData}/>
+        setAnalyticsData={this.setAnalyticsData}
+        showAllToPoints={this.showAllToPoints}
+        showAllFromPoints={this.showAllFromPoints}
+        />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={4} className="left-padded">
         <MapBox
           lat={this.state.latitude}
           long={this.state.longitude}

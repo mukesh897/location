@@ -4,6 +4,28 @@
   text-align: center;
 }
 
+#fixed-width-table
+{
+  width:98%;
+  position: fixed !important;
+}
+
+.fixed-width {
+  width: 700px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-right: 50px;
+  margin-right: 20px;
+}
+
+.left-padded {
+  padding-left: 50px;
+}
+
+.right-padded {
+  padding-left: 50px;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;

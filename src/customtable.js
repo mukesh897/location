@@ -1,10 +1,25 @@
 import React from 'react';
+import Table from 'react-bootstrap/Table'
+import App from './App.css'
 
 
 export default class CustomTable extends React.Component{
 
+  generateTableHeaders = () => {
+    return (
+      <tr>
+        <th>ID</th>
+        <th>User ID</th>
+        <th><button onClick={() => this.props.showAllFromPoints()}>From</button></th>
+        <th><button onClick={() => this.props.showAllToPoints()}>To</button></th>
+      </tr>
+    )
+  }
+
   createdata=(row)=> {
     return (
+
+
 
         <tr>
           <td>{row.id}</td>
@@ -21,10 +36,19 @@ export default class CustomTable extends React.Component{
     const rows = this.props.data;
     const listItems = rows.map(this.createdata)
 
+    const tableHeaders = (this.generateTableHeaders())
+
 
 
     return(
-       <ul>{listItems}</ul>
+      <div>
+         <Table className="striped bordered hover" variant="dark">
+           <thead>{tableHeaders}</thead>
+           <tbody>
+             {listItems}
+           </tbody>
+         </Table>
+       </div>
     )
   }
 }
