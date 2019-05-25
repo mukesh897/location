@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import styled from 'styled-components';
+
+const zoom = [8];
 
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1IjoibXVrZXNoODk3IiwiYSI6ImNqdzB0czNyeTBkb2Y0YXBzaGtybWN1OXMifQ.FzFYZ1t6Fe0TV-Csb1bDlA"
 });
+
+const Mark = styled.div`
+  background-color: #e74c3c;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 4px solid #eaa29b;
+`;
 
 class MapBox extends Component {
 
@@ -14,82 +25,61 @@ class MapBox extends Component {
       latitude: 37.7577,
       longitude: -122.4376,
       zoom: 8
-    }
+    },
+    latlong: [0,0]
   };
 
   render() {
-    return (
-      <Map
-        style="mapbox://styles/mapbox/streets-v9"
-        containerStyle={{
-          height: "500px",
-          width: "500px"
-        }}>
+    var latlong = [];
+    var lat = this.props.lat
+    var long = this.props.long
+    latlong.push(this.props.long)
+    latlong.push(this.props.lat)
+      if (lat === 'NULL' && long === 'NULL') {
+        console.log("In the null check")
+        latlong = []
+        latlong.push(0)
+        latlong.push(0)
+        console.log("latlong array is")
+        console.log(latlong)
+      }
+
+      console.log("Printing latLong inside Map")
+      console.log(latlong[0] + " " + latlong[1])
+      return (
+        // <Map
+        //   style="mapbox://styles/mapbox/streets-v9"
+        //   containerStyle={{
+        //     height: "500px",
+        //     width: "500px"
+        //   }}>
+        //   <Marker coordinates={latlong}>
+        //       <Mark />
+        //     </Marker>
+        //   <Layer
+        //     type="symbol"
+        //     id="marker"
+        //     layout={{ "icon-image": "marker-15" }}>
+        //     <Feature coordinates={latlong}/>
+        //   </Layer>
+        // </Map>
+        <Map
+          style="mapbox://styles/mapbox/streets-v8"
+          zoom={zoom}
+          center = {latlong}
+          containerStyle={{
+            height: "500px",
+            width: "500px"
+          }}>
           <Layer
             type="symbol"
             id="marker"
             layout={{ "icon-image": "marker-15" }}>
-            <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
+            <Feature coordinates={latlong}/>
           </Layer>
-      </Map>
+        </Map>
     );
   }
 }
 
 export default MapBox;
-
-
-
-// import React from "react";
-// import L from "leaflet";
-// // make sure that plugins are imported *after* Leaflet
-// import "leaflet-contextmenu";
-// // import plugin's css (if present)
-// // note, that this is only one of possible ways to load css
-// import "leaflet-contextmenu/dist/leaflet.contextmenu.css";
-//
-// const style = {
-//   width: "50px",
-//   height: "50px"
-// };
-//
-// class Map extends React.Component {
-//   componentDidMount() {
-//     // create map
-//     this.map = L.map("map", {
-//       // plugin code is assigned to Leaflet after import
-//       // so we can immediately use plugins features
-//       contextmenu: true,
-//       contextmenuItems: [
-//         {
-//           text: "Zoom in",
-//           callback: this.zoomIn
-//         },
-//         {
-//           text: "Zoom out",
-//           callback: this.zoomOut
-//         }
-//       ],
-//       center: [45.3, 20.154007],
-//       zoom: 0,
-//       layers: [
-//         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-//           attribution:
-//             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//         })
-//       ]
-//     });
-//   }
-//
-//   zoomIn = () => {
-//     this.map.zoomIn();
-//   };
-//   zoomOut = () => {
-//     this.map.zoomOut();
-//   };
-//   render() {
-//     return <div id="map" style={style} />;
-//   }
-// }
-//
-// export default Map;

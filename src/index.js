@@ -1,8 +1,11 @@
 import React from "react";
 import { render } from "react-dom";
 import MapBox from "./Map";
+import Charts from "./charts";
+
 import Csv from "./csv";
 import Grid from '@material-ui/core/Grid';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // const { Checkbox } from 'react-md';
 // import DataTable from 'react-data-table-component';
 
@@ -17,8 +20,9 @@ class App extends React.Component {
       longitude: 77.5946
     }
   }
-  setlatlong = (lat,long) => {
+  setLatLong = (lat,long) => {
     console.log("Setting lat long")
+    console.log(lat + " " + long);
     this.setState({
       latitude: lat ,
       longitude: long
@@ -30,12 +34,17 @@ class App extends React.Component {
   render() {
     return(
     <Grid container>
-      <Grid item xs={6}>
-        <Csv setLatLong={this.setlatlong}/>
+      <Grid item xs={4}>
+        <Csv setLatLong={this.setLatLong}/>
       </Grid>
-      <Grid item xs={6}>
-        <MapBox />
-
+      <Grid item xs={4}>
+        <MapBox
+          lat={this.state.latitude}
+          long={this.state.longitude}
+         />
+       </Grid>
+      <Grid item xs={4}>
+        <Charts/>
       </Grid>
     </Grid>
   )
