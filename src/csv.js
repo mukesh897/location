@@ -13,6 +13,10 @@ import App from './App.css'
 import Pagination from 'react-bootstrap/Pagination'
 import PageItem from 'react-bootstrap/PageItem'
 
+import Button from 'react-bootstrap/Button'
+
+
+
 
 
 const sampleData = [{ id: 1, title: 'Conan the Barbarian', year: '1982' }, { id: 2, title: 'Conan the Barbarian', year: '1982' } ];
@@ -100,10 +104,10 @@ const columns = [
     sortable: true,
     cell: row =>
     <div>
-      <button id={row.from_lat} onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>Click me</button>
-      <button onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>
+      <Button variant="light" style={{width:"100%"}}  id={row.from_lat} onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>Click me</Button>
+      <Button variant="light" style={{width:"100%"}}  onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>
         {row.from_lat},{row.from_long}
-      </button>
+      </Button>
     </div>,
 
   },
@@ -188,24 +192,24 @@ export default class Csv extends Component {
       let items = [];
       this.pageItems = []
       this.pageItems.push(
-        <Pagination.First><button>First</button></Pagination.First>
+        <Pagination.First><Button variant="light" style={{width:"100%"}} >First</Button></Pagination.First>
 
       )
       this.pageItems.push(
-        <Pagination.Prev><button>Prev</button></Pagination.Prev>
+        <Pagination.Prev><Button variant="light" style={{width:"100%"}} >Prev</Button></Pagination.Prev>
       )
       for (let number = this.state.startPage; number <= this.state.endPage; number++) {
         this.pageItems.push(
 
-            <button onClick={() => this.getPageDetails(number)} >{number}</button>
+            <Button variant="light" style={{width:"100%"}}  onClick={() => this.getPageDetails(number)} >{number}</Button>
           // </Pagination.Item>,
         );
       }
       this.pageItems.push(
-        <Pagination.Next><button onClick={() => this.generateNextPage()}>Next</button></Pagination.Next>
+        <Pagination.Next><Button variant="light" style={{width:"100%"}}  onClick={() => this.generateNextPage()}>Next</Button></Pagination.Next>
       );
       this.pageItems.push(
-        <Pagination.Last><button>Last</button></Pagination.Last>
+        <Pagination.Last><Button variant="light" style={{width:"100%"}} >Last</Button></Pagination.Last>
       );
 
       var counter = 0;
@@ -291,24 +295,24 @@ export default class Csv extends Component {
 
       this.pageItems = []
       this.pageItems.push(
-        <Pagination.First><button>First</button></Pagination.First>
+        <Pagination.First><Button variant="light" style={{width:"100%"}} >First</Button></Pagination.First>
 
       )
       this.pageItems.push(
-        <Pagination.Prev><button>Prev</button></Pagination.Prev>
+        <Pagination.Prev><Button variant="light" style={{width:"100%"}} >Prev</Button></Pagination.Prev>
       )
       for (let number = startPage; number <= endPage; number++) {
         this.pageItems.push(
           <Pagination.Item>
-            <button onClick={() => this.getPageDetails(number)} >{number}</button>
+            <Button variant="light" style={{width:"100%"}}  onClick={() => this.getPageDetails(number)} >{number}</Button>
           </Pagination.Item>,
         );
       }
       this.pageItems.push(
-        <Pagination.Next onClick={() => this.generateNextPage()}><button>Next</button></Pagination.Next>
+        <Pagination.Next onClick={() => this.generateNextPage()}><Button variant="light" style={{width:"100%"}} >Next</Button></Pagination.Next>
       );
       this.pageItems.push(
-        <Pagination.Last><button>Last</button></Pagination.Last>
+        <Pagination.Last><Button variant="light" style={{width:"100%"}} >Last</Button></Pagination.Last>
       );
     }
 
@@ -359,18 +363,6 @@ export default class Csv extends Component {
             showAllToPoints = {this.props.showAllToPoints}
             showAllFromPoints = {this.props.showAllFromPoints}
           />
-
-          {/* <DataTable
-            title="Arnold Movies"
-            columns={columns}
-            data={this.state.currentPage || sampleData}
-            pagination={true}
-          /> */}
-
-
-
-
-          {/* <HotTable data={this.state.fileText} colHeaders={false} rowHeaders={true} height="1000" /> */}
         </div>
       );
     }

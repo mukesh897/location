@@ -1,6 +1,9 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table'
 import App from './App.css'
+import Button from 'react-bootstrap/Button'
+
+
 
 
 export default class CustomTable extends React.Component{
@@ -10,8 +13,8 @@ export default class CustomTable extends React.Component{
       <tr>
         <th>ID</th>
         <th>User ID</th>
-        <th><button onClick={() => this.props.showAllFromPoints()}>From</button></th>
-        <th><button onClick={() => this.props.showAllToPoints()}>To</button></th>
+        <th><Button variant="outline-secondary"  style={{width:"100%"}} onClick={() => this.props.showAllFromPoints()}>From (Lat, Long) </Button></th>
+        <th><Button variant="outline-secondary" style={{width:"100%"}} onClick={() => this.props.showAllToPoints()}>To  (Lat, Long) </Button></th>
       </tr>
     )
   }
@@ -24,8 +27,8 @@ export default class CustomTable extends React.Component{
         <tr>
           <td>{row.id}</td>
           <td>{row.user_id}</td>
-          <td><button onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>{row.from_lat}<br></br>{row.from_long}</button></td>
-          <td><button onClick={() => this.props.setLatLong(row.to_lat, row.to_long)}>{row.to_lat}<br></br>{row.to_long}</button></td>
+          <td><Button variant="secondary" style={{width:"100%"}} onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>{row.from_lat},{row.from_long}</Button></td>
+          <td><Button variant="secondary" style={{width:"100%"}} onClick={() => this.props.setLatLong(row.to_lat, row.to_long)}>{row.to_lat},{row.to_long}</Button></td>
 
         </tr>
 
@@ -42,7 +45,7 @@ export default class CustomTable extends React.Component{
 
     return(
       <div>
-         <Table className="striped bordered hover" variant="dark">
+         <Table style={{width: "100%"}} striped bordered hover size="sm" variant="dark">
            <thead>{tableHeaders}</thead>
            <tbody>
              {listItems}

@@ -6,6 +6,11 @@ import Charts from "./charts";
 import Csv from "./csv";
 import Grid from '@material-ui/core/Grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+
+
 // const { Checkbox } from 'react-md';
 // import DataTable from 'react-data-table-component';
 
@@ -56,25 +61,50 @@ class App extends React.Component {
 
   render() {
     return(
-    <Grid container spacing={2}>
-      <Grid item xs={4} className="right-padded">
-        <Csv setLatLong={this.setLatLong}
-        setAnalyticsData={this.setAnalyticsData}
-        showAllToPoints={this.showAllToPoints}
-        showAllFromPoints={this.showAllFromPoints}
-        />
-      </Grid>
-      <Grid item xs={4} className="left-padded">
-        <MapBox
-          lat={this.state.latitude}
-          long={this.state.longitude}
-         />
-       </Grid>
-      <Grid item xs={4}>
-        <Charts
-        analyticsData={this.state.analyticsData}/>
-      </Grid>
-    </Grid>
+
+      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+        <Tab eventKey="home" title="Home">
+          <Grid container spacing={2}>
+            <Grid item xs={6} className="right-padded">
+              <Csv setLatLong={this.setLatLong}
+              setAnalyticsData={this.setAnalyticsData}
+              showAllToPoints={this.showAllToPoints}
+              showAllFromPoints={this.showAllFromPoints}
+              />
+            </Grid>
+            <Grid item xs={6} className="left-padded">
+              <MapBox
+                lat={this.state.latitude}
+                long={this.state.longitude}
+               />
+             </Grid>
+           </Grid>
+        </Tab>
+        <Tab eventKey="contact" title="Maps">
+          <Charts
+          analyticsData={this.state.analyticsData}/>
+        </Tab>
+      </Tabs>
+    //
+    // <Grid container spacing={2}>
+    //   <Grid item xs={4} className="right-padded">
+    //     <Csv setLatLong={this.setLatLong}
+    //     setAnalyticsData={this.setAnalyticsData}
+    //     showAllToPoints={this.showAllToPoints}
+    //     showAllFromPoints={this.showAllFromPoints}
+    //     />
+    //   </Grid>
+    //   <Grid item xs={4} className="left-padded">
+    //     <MapBox
+    //       lat={this.state.latitude}
+    //       long={this.state.longitude}
+    //      />
+    //    </Grid>
+    //   <Grid item xs={4}>
+    //     <Charts
+    //     analyticsData={this.state.analyticsData}/>
+    //   </Grid>
+    // </Grid>
   )
   }
 }
