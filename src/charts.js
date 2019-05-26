@@ -77,7 +77,7 @@ export default class Charts extends React.Component{
 
     const options = {
       title: {
-        text: "Percentage of trips by different travel packages"
+        text: "Percentage of trips by different travel preferences"
       },
       data: [{
                 type: "column",

@@ -62,19 +62,18 @@ class MapBox extends Component {
         continue;
       }
       validPoints++;
-      console.log("CurrentLat " + latitudes[i] + " currentLong " + longitudes[i] + " currentMeanLat " + meanLat + " currentMeanLong " + meanLong)
       meanLat = parseFloat(meanLat) + parseFloat(latitudes[i])
       meanLong = parseFloat(meanLong) + parseFloat(longitudes[i])
     }
 
-    meanLat = meanLat/validPoints;
-    meanLong = meanLong/validPoints;
+    if (validPoints !== 0) {
+      meanLat = meanLat/validPoints;
+      meanLong = meanLong/validPoints;
+    }
 
     var centre = []
     centre.push(meanLong);
     centre.push(meanLat);
-    console.log("Printing centre")
-    console.log(centre)
     return centre;
   }
 
@@ -82,11 +81,6 @@ class MapBox extends Component {
     var latlong = [];
     var latitudes = this.props.latitudes
     var longitudes = this.props.longitudes
-
-    console.log("latitudes on map entry")
-    console.log(latitudes)
-    console.log("longitudes on map entry")
-    console.log(longitudes)
 
     var features = this.generateFeatures(latitudes, longitudes);
     var centre = this.getCentre(latitudes, longitudes);
