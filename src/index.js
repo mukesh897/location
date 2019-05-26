@@ -21,8 +21,8 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      latitude: 12.9716,
-      longitude: 77.5946,
+      latitudes: [12.9716, 12.9716],
+      longitudes: [77.5946, 77.5946],
       analyticsData: {
         bookingMedium: {
           online: 0,
@@ -43,9 +43,13 @@ class App extends React.Component {
   setLatLong = (lat,long) => {
     console.log("Setting lat long")
     console.log(lat + " " + long);
+    var latitudes = [];
+    var longitudes = [];
+    latitudes.push(lat)
+    longitudes.push(long)
     this.setState({
-      latitude: lat ,
-      longitude: long
+      latitudes: latitudes,
+      longitudes: longitudes
     })
     console.log('printing state after update')
     console.log(this.state);
@@ -74,8 +78,8 @@ class App extends React.Component {
             </Grid>
             <Grid item xs={6} className="left-padded">
               <MapBox
-                lat={this.state.latitude}
-                long={this.state.longitude}
+                latitudes={this.state.latitudes}
+                longitudes={this.state.longitudes}
                />
              </Grid>
            </Grid>
