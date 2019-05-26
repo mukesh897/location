@@ -24,7 +24,7 @@ class MapBox extends Component {
       height: 400,
       latitude: 37.7577,
       longitude: -122.4376,
-      zoom: 8
+      zoom: 15
     },
     latlong: [0,0]
   };
@@ -36,33 +36,12 @@ class MapBox extends Component {
     latlong.push(this.props.long)
     latlong.push(this.props.lat)
       if (lat === 'NULL' && long === 'NULL') {
-        console.log("In the null check")
         latlong = []
         latlong.push(0)
         latlong.push(0)
-        console.log("latlong array is")
-        console.log(latlong)
       }
 
-      console.log("Printing latLong inside Map")
-      console.log(latlong[0] + " " + latlong[1])
       return (
-        // <Map
-        //   style="mapbox://styles/mapbox/streets-v9"
-        //   containerStyle={{
-        //     height: "500px",
-        //     width: "500px"
-        //   }}>
-        //   <Marker coordinates={latlong}>
-        //       <Mark />
-        //     </Marker>
-        //   <Layer
-        //     type="symbol"
-        //     id="marker"
-        //     layout={{ "icon-image": "marker-15" }}>
-        //     <Feature coordinates={latlong}/>
-        //   </Layer>
-        // </Map>
         <div className="left-padded">
           <Map
             style="mapbox://styles/mapbox/streets-v8"

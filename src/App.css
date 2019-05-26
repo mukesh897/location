@@ -4,11 +4,6 @@
   text-align: center;
 }
 
-#fixed-width-table
-{
-  width:98%;
-  position: fixed !important;
-}
 
 .fixed-width {
   width: 700px;
@@ -20,6 +15,14 @@
 
 .left-padded {
   padding-left: 50px;
+}
+
+.top-padded {
+  padding-top: 40px;
+}
+
+.bottom-padded {
+  padding-bottom: 40px;
 }
 
 .right-padded {

@@ -65,7 +65,7 @@ class App extends React.Component {
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="home" title="Home">
           <Grid container spacing={2}>
-            <Grid item xs={6} className="right-padded">
+            <Grid item xs={6} className="right-padded top-padded">
               <Csv setLatLong={this.setLatLong}
               setAnalyticsData={this.setAnalyticsData}
               showAllToPoints={this.showAllToPoints}
@@ -81,8 +81,12 @@ class App extends React.Component {
            </Grid>
         </Tab>
         <Tab eventKey="contact" title="Maps">
-          <Charts
-          analyticsData={this.state.analyticsData}/>
+          <Grid container align='center'>
+            <Grid item xs={12}>
+              <Charts
+              analyticsData={this.state.analyticsData}/>
+            </Grid>
+        </Grid>
         </Tab>
       </Tabs>
     //

@@ -15,127 +15,11 @@ import PageItem from 'react-bootstrap/PageItem'
 
 import Button from 'react-bootstrap/Button'
 
-
-
-
-
-const sampleData = [{ id: 1, title: 'Conan the Barbarian', year: '1982' }, { id: 2, title: 'Conan the Barbarian', year: '1982' } ];
-
-const initTableData = [
-  ['Year', 'Tesla', 'Mercedes', 'Toyota', 'Volvo'],
-  ['2019', 10, 11, 12, 13],
-  ['2020', 20, 11, 14, 13],
-  ['2021', 30, 15, 12, 13]
-];
-
-const columns = [
-  {
-    name: 'id',
-    selector: 'id',
-    sortable: true,
-  },
-  {
-    name: 'user_id',
-    selector: 'user_id',
-    sortable: true,
-  },
-  {
-    name: 'vehicle_model_id',
-    selector: 'vehicle_model_id',
-    sortable: true,
-  },
-  {
-    name: 'package_id',
-    selector: 'package_id',
-    sortable: true,
-  },
-  {
-    name: 'travel_id',
-    selector: 'travel_id',
-    sortable: true,
-  },
-  {
-    name: 'from_area_id',
-    selector: 'from_area_id',
-    sortable: true,
-  },
-  {
-    name: 'to_area_id',
-    selector: 'to_area_id',
-    sortable: true,
-  },
-  {
-    name: 'from_city_id',
-    selector: 'from_city_id',
-    sortable: true,
-  },
-  {
-    name: 'to_city_id',
-    selector: 'to_city_id',
-    sortable: true,
-  },
-  {
-    name: 'from_date',
-    selector: 'from_date',
-    sortable: true,
-  },
-  {
-    name: 'to_date',
-    selector: 'to_date',
-    sortable: true,
-  },
-  {
-    name: 'online_booking',
-    selector: 'online_booking',
-    sortable: true,
-  },
-  {
-    name: 'mobile_site_booking',
-    selector: 'mobile_site_booking',
-    sortable: true,
-  },
-  {
-    name: 'booking_created',
-    selector: 'booking_created',
-    sortable: true,
-  },
-  {
-    name: 'from_lat from_long',
-    sortable: true,
-    cell: row =>
-    <div>
-      <Button variant="light" style={{width:"100%"}}  id={row.from_lat} onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>Click me</Button>
-      <Button variant="light" style={{width:"100%"}}  onClick={() => this.props.setLatLong(row.from_lat, row.from_long)}>
-        {row.from_lat},{row.from_long}
-      </Button>
-    </div>,
-
-  },
-
-  {
-    name: 'to_lat to_long',
-    sortable: true,
-    cell: row => <div onClick={ () => this.props.setlatlong(row.to_lat,row.to_long)}><div>{row.to_lat}</div>{row.to_long}</div>,
-  },
-  {
-    name: 'Car_Cancellation',
-    selector: 'Car_Cancellation',
-    sortable: true,
-  },
-];
-
 export default class Csv extends Component {
 
 
   constructor(props) {
     super(props);
-
-    this.data = [
-      ['', 'Tesla', 'Mercedes', 'Toyota', 'Volvo'],
-      ['2019', 10, 11, 12, 13],
-      ['2020', 20, 11, 14, 13],
-      ['2021', 30, 15, 12, 13]
-    ];
 
 
     this.state = {
@@ -158,8 +42,7 @@ export default class Csv extends Component {
       this.setState({
         fileText: reader.result,
       })
-      console.log("Reader result is")
-      console.log(reader.result)
+
     }
     reader.readAsText(files[0]);
   }
@@ -225,12 +108,6 @@ export default class Csv extends Component {
         pages.push(thisPage)
       }
 
-      console.log("First page")
-      console.log(pages[0])
-
-      console.log("Second page")
-      console.log(pages[1])
-
       this.generateAnalyticsData(data)
 
       this.setState({
@@ -248,22 +125,67 @@ export default class Csv extends Component {
         },
         travelType: [0,0,0],
         package: [0,0,0,0,0,0,0],
+        fromAreaId: {},
+        toAreaId: {},
+        fromCityId: {},
+        toCityId: {}
       }
 
       for (var i = 0 ; i < data.length ; i++) {
         var trip = data[i]
+
+        // Populate booking medium info for analytics
         if (trip.mobile_site_booking === "1") {
           analyticsData["bookingMedium"]["mobileSite"]++;
         }
         if (trip.online_booking === "1") {
           analyticsData["bookingMedium"]["online"]++;
         }
+
+        // Populate travelType info for analytics
         if (trip.travel_type_id !== 'NULL') {
           analyticsData["travelType"][trip.travel_type_id - 1]++;
         }
+
+        // Populate travelType info for analytics
         if (trip.package_id !== 'NULL') {
           analyticsData["package"][trip.package_id - 1]++;
         }
+
+        // Populate area,city info for analytics
+
+        if (trip.from_area_id !== 'NULL') {
+          if (analyticsData["fromAreaId"][trip.from_area_id]) {
+            analyticsData["fromAreaId"][trip.from_area_id]++;
+          } else {
+            analyticsData["fromAreaId"][trip.from_area_id] = 1;
+          }
+        }
+
+        if (trip.to_city_id !== 'NULL') {
+          if (analyticsData["toCityId"][trip.to_city_id]) {
+            analyticsData["toCityId"][trip.to_city_id]++;
+          } else {
+            analyticsData["toCityId"][trip.to_city_id] = 1;
+          }
+        }
+
+        if (trip.from_city_id !== 'NULL') {
+          if (analyticsData["fromCityId"][trip.from_city_id]) {
+            analyticsData["fromCityId"][trip.from_city_id]++;
+          } else {
+            analyticsData["fromCityId"][trip.from_city_id] = 1;
+          }
+        }
+
+        if (trip.to_area_id !== 'NULL') {
+          if (analyticsData["toAreaId"][trip.to_area_id]) {
+            analyticsData["toAreaId"][trip.to_area_id]++;
+          } else {
+            analyticsData["toAreaId"][trip.to_area_id] = 1;
+          }
+        }
+
       }
 
       this.props.setAnalyticsData(analyticsData);
@@ -317,7 +239,6 @@ export default class Csv extends Component {
     }
 
     getPageDetails = pageNum => {
-      console.log("Getting page details for " + pageNum)
       this.setState({
         currentPage: this.state.pages[pageNum],
       })
@@ -348,7 +269,7 @@ export default class Csv extends Component {
 
       return (
         <div>
-          <CsvParse
+          <CsvParse className="bottomPadded"
             keys={keys}
             onDataUploaded={this.handleData}
             onError={this.handleEr00ror}
@@ -358,7 +279,7 @@ export default class Csv extends Component {
 
           <CustomTable
             tableHeaders = {keys}
-            data = {this.state.currentPage || sampleData}
+            data = {this.state.currentPage}
             setLatLong = {this.props.setLatLong}
             showAllToPoints = {this.props.showAllToPoints}
             showAllFromPoints = {this.props.showAllFromPoints}

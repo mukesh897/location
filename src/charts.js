@@ -2,6 +2,11 @@ import React from 'react';
 import { Progress } from 'reactstrap';
 import CanvasJSReact from './canvasjs.react'
 
+import Grid from '@material-ui/core/Grid';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Card from '@material-ui/core/Card';
+
 
 
 export default class Charts extends React.Component{
@@ -50,19 +55,9 @@ export default class Charts extends React.Component{
 
     return (
       <div>
-        <div className="text-center">Packages</div>
-
-        <Progress multi>
-      <Progress bar value={perc1}>4hrs & 40kms</Progress>
-      <Progress bar color="success" value={perc2}>8hrs & 80kms</Progress>
-      <Progress bar color="info" value={perc3}>6hrs & 60kms</Progress>
-      <Progress bar color="warning" value={perc4}>10hrs & 100kms</Progress>
-      <Progress bar color="danger" value={perc5}>5hrs & 50kms</Progress>
-      <Progress bar color="danger" value={perc6}>3hrs & 30kms</Progress>
-      <Progress bar color="danger" value={perc7}>12hrs & 120kms</Progress>
-      </Progress>
-
-      <CanvasJSChart options = {options}/>
+        <Card>
+          <CanvasJSChart options = {options}/>
+        </Card>
       </div>
     )
   }
@@ -77,19 +72,177 @@ export default class Charts extends React.Component{
     var travelPerc2 = Math.round ((travelType2/travelTypeTotal) * 100)
     var travelPerc3 = Math.round ((travelType3/travelTypeTotal) * 100)
 
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Percentage of trips by different travel packages"
+      },
+      data: [{
+                type: "column",
+                dataPoints: [
+                    { label: "long distance",  y: travelPerc1  },
+                    { label: "point to point", y: travelPerc2  },
+                    { label: "hourly rental", y: travelPerc3  },
+                ]
+       }]
+   }
+
     return(
       <div>
-        <div className="text-center">Travel Type</div>
-        <Progress multi>
-      <Progress bar value={travelPerc1}>long distance</Progress>
-      <Progress bar color="success" value={travelPerc2}>point to point</Progress>
-      <Progress bar color="info" value={travelPerc3}>hourly rental</Progress>
-    </Progress>
+        <Card>
+          <CanvasJSChart options = {options}/>\
+        </Card>
       </div>
     )
 
 
 
+  }
+
+  generateFromAreaVis = analyticsData => {
+    var fromAreaIdsData = analyticsData["fromAreaId"];
+    var fromAreaIdsDataPoints = []
+    for (var key in fromAreaIdsData) {
+      fromAreaIdsDataPoints.push({
+        label: key,
+        y: fromAreaIdsData[key],
+      })
+    }
+
+    fromAreaIdsDataPoints.sort(function(a,b) {
+      return b.y - a.y;
+    })
+
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Number of trips starting from each area id"
+      },
+      data: [{
+                type: "pyramid",
+                dataPoints: fromAreaIdsDataPoints
+       }]
+   }
+
+   return (
+     <div>
+       <Card>
+         <CanvasJSChart options = {options}/>
+       </Card>
+     </div>
+   )
+  }
+
+  generateToCityVis = analyticsData => {
+    var toCityIdsData = analyticsData["toCityId"];
+    var toCityIdsDataPoints = []
+    for (var key in toCityIdsData) {
+      toCityIdsDataPoints.push({
+        label: key,
+        y: toCityIdsData[key],
+      })
+    }
+    toCityIdsDataPoints.sort(function(a,b) {
+      return b.y - a.y;
+    })
+
+
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Number of trips ending to each city id"
+      },
+      data: [{
+                type: "pyramid",
+                dataPoints: toCityIdsDataPoints
+       }]
+   }
+
+   return (
+     <div>
+       <Card>
+         <CanvasJSChart options = {options}/>
+       </Card>
+     </div>
+   )
+  }
+
+  generateToAreaVis = analyticsData => {
+    var toAreaIdsData = analyticsData["toAreaId"];
+    var toAreaIdsDataPoints = []
+    for (var key in toAreaIdsData) {
+      toAreaIdsDataPoints.push({
+        label: key,
+        y: toAreaIdsData[key],
+      })
+    }
+    toAreaIdsDataPoints.sort(function(a,b) {
+      return b.y - a.y;
+    })
+
+
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Number of trips ending to each area id"
+      },
+      data: [{
+                type: "pyramid",
+                dataPoints: toAreaIdsDataPoints
+       }]
+   }
+
+   return (
+     <div>
+       <Card>
+         <CanvasJSChart options = {options}/>
+       </Card>
+     </div>
+   )
+  }
+
+  generateFromCityVis = analyticsData => {
+    var fromCityIdsData = analyticsData["fromCityId"];
+    var fromCityIdsDataPoints = []
+    for (var key in fromCityIdsData) {
+      fromCityIdsDataPoints.push({
+        label: key,
+        y: fromCityIdsData[key],
+      })
+    }
+    fromCityIdsDataPoints.sort(function(a,b) {
+      return b.y - a.y;
+    })
+
+
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Number of trips starting from each city id"
+      },
+      data: [{
+                type: "doughnut",
+                dataPoints: fromCityIdsDataPoints
+       }]
+   }
+
+   return (
+     <div>
+       <Card>
+         <CanvasJSChart options = {options}/>
+       </Card>
+     </div>
+   )
   }
 
   generateBookingMediumVis = analyticsData => {
@@ -99,13 +252,27 @@ export default class Charts extends React.Component{
     var mobilePerc = Math.round((mobileSiteBookings/totalBookings) * 100)
     var onlinePerc = Math.round((onlineBookings/totalBookings) * 100)
 
+    var CanvasJS = CanvasJSReact.CanvasJS;
+    var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+    const options = {
+      title: {
+        text: "Percentage of trips by booking medium"
+      },
+      data: [{
+                type: "bar",
+                dataPoints: [
+                    { label: "MobileSite bookings",  y: mobilePerc  },
+                    { label: "Online bookings", y: onlinePerc  },
+                ]
+       }]
+   }
+
     return (
       <div>
-
-        <div className="text-center">Mobile Bookings: {mobilePerc}%</div>
-        <Progress value={mobilePerc} />
-        <div className="text-center">Online Bookings: {onlinePerc}%</div>
-        <Progress value={onlinePerc} />
+        <Card>
+          <CanvasJSChart options = {options}/>
+        </Card>
       </div>
     )
   }
@@ -117,18 +284,38 @@ export default class Charts extends React.Component{
 
 
     var analyticsData = this.props.analyticsData
+    console.log("Printing analytics data")
+    console.log(analyticsData)
     return(
       <div>
-      <div>
-        {this.generateBookingMediumVis(analyticsData)}
-      </div>
-      <div>
-        {this.generatePackageVis(analyticsData)}
-      </div>
-      <div>
-        {this.generateTravelTypeVis(analyticsData)}
-      </div>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <div>
+              {this.generateBookingMediumVis(analyticsData)}
+            </div>
+            <div>
+              {this.generateTravelTypeVis(analyticsData)}
+            </div>
+            <div>
+              {this.generateToCityVis(analyticsData)}
+            </div>
+            <div>
+              {this.generateToAreaVis(analyticsData)}
+            </div>
 
+          </Grid>
+          <Grid item xs={6}>
+            <div>
+              {this.generatePackageVis(analyticsData)}
+            </div>
+            <div>
+              {this.generateFromAreaVis(analyticsData)}
+            </div>
+            <div>
+              {this.generateFromCityVis(analyticsData)}
+            </div>
+          </Grid>
+        </Grid>
     </div>
     )
   }
