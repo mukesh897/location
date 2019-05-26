@@ -20,10 +20,9 @@ export default class CustomTable extends React.Component{
   }
 
   createdata=(row)=> {
+    console.log("Row receieved is")
+    console.log(row)
     return (
-
-
-
         <tr>
           <td>{row.id}</td>
           <td>{row.user_id}</td>

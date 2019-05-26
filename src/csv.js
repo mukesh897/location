@@ -244,6 +244,14 @@ export default class Csv extends Component {
       })
     }
 
+    showAllToPoints = () => {
+      this.props.showAllToPoints(this.state.fileText)
+    }
+
+    showAllFromPoints = () => {
+      this.props.showAllFromPoints(this.state.fileText)
+    }
+
     render() {
       const keys = [
         "id",
@@ -281,8 +289,8 @@ export default class Csv extends Component {
             tableHeaders = {keys}
             data = {this.state.currentPage}
             setLatLong = {this.props.setLatLong}
-            showAllToPoints = {this.props.showAllToPoints}
-            showAllFromPoints = {this.props.showAllFromPoints}
+            showAllToPoints = {this.showAllToPoints}
+            showAllFromPoints = {this.showAllFromPoints}
           />
         </div>
       );

@@ -55,12 +55,32 @@ class App extends React.Component {
     console.log(this.state);
   }
 
-  showAllToPoints = () => {
-
+  showAllFromPoints = (data) => {
+    var latitudes = []
+    var longitudes = []
+    for (var i = 0 ; i < data.length ; i++) {
+      var trip = data[i]
+      latitudes.push(trip.from_lat)
+      longitudes.push(trip.from_long)
+    }
+    this.setState({
+      latitudes: latitudes,
+      longitudes: longitudes
+    })
   }
 
-  showAllFromPoints = () => {
-
+  showAllToPoints = (data) => {
+    var latitudes = []
+    var longitudes = []
+    for (var i = 0 ; i < data.length ; i++) {
+      var trip = data[i]
+      latitudes.push(trip.to_lat)
+      longitudes.push(trip.to_long)
+    }
+    this.setState({
+      latitudes: latitudes,
+      longitudes: longitudes
+    })
   }
 
   render() {

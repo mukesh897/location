@@ -24,60 +24,57 @@ class MapBox extends Component {
       height: 400,
       latitude: 37.7577,
       longitude: -122.4376,
-      zoom: 15
+      zoom: 2
     },
     latlong: [0,0]
   };
 
   generateFeatures = (latitudes, longitudes) => {
-    var allFeaturesInvalid = true
+    var validPoints = 0
     var features = []
     for (var i = 0 ; i < latitudes.length ; i++) {
       var latlong = []
       var lat = latitudes[i]
       var long = longitudes[i]
 
-      console.log("Current latlong")
-      console.log(lat + " " + long)
-
       latlong.push(long)
       latlong.push(lat)
 
-      console.log(latlong)
         if (lat === 'NULL' && long === 'NULL') {
           continue;
         }
-        else {
-          allFeaturesInvalid = false
-        }
+      validPoints++;
       features.push(<Feature coordinates={latlong}/>)
     }
-    if (allFeaturesInvalid) {
+    if (validPoints === 0) {
       var latlong = [0,0]
       features.push(<Feature coordinates={latlong}/>)
     }
-    console.log("Printing features")
-    console.log(features)
     return features;
   }
 
   getCentre = (latitudes, longitudes) => {
+    var validPoints = 0;
     var meanLat = 0;
     var meanLong = 0;
     for (var i  = 0 ; i < latitudes.length ; i++) {
       if (latitudes[i] === 'NULL' && longitudes[i] === 'NULL') {
         continue;
       }
-      meanLat = meanLat + latitudes[i]
-      meanLong = meanLong + longitudes[i]
+      validPoints++;
+      console.log("CurrentLat " + latitudes[i] + " currentLong " + longitudes[i] + " currentMeanLat " + meanLat + " currentMeanLong " + meanLong)
+      meanLat = parseFloat(meanLat) + parseFloat(latitudes[i])
+      meanLong = parseFloat(meanLong) + parseFloat(longitudes[i])
     }
 
-    meanLat = meanLat/latitudes.length;
-    meanLong = meanLong/latitudes.length;
+    meanLat = meanLat/validPoints;
+    meanLong = meanLong/validPoints;
 
     var centre = []
     centre.push(meanLong);
     centre.push(meanLat);
+    console.log("Printing centre")
+    console.log(centre)
     return centre;
   }
 
@@ -102,7 +99,8 @@ class MapBox extends Component {
             center = {centre}
             containerStyle={{
               height: "500px",
-              width: "300px"
+              width: "300px",
+              zoom: 1
             }}>
             <Layer
               type="symbol"
