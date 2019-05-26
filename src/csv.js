@@ -114,6 +114,7 @@ export default class Csv extends Component {
         fileText: data,
         tableData: dataArray,
         pages: pages,
+        currentPage: pages[0]
       })
     }
 
