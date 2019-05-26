@@ -62,7 +62,6 @@ export default class Csv extends Component {
 
 
         for (key in data[currentElementIndex]) {
-
           temp.push(data[currentElementIndex][key]);
         }
         dataArray.push(temp);
@@ -70,6 +69,39 @@ export default class Csv extends Component {
       this.data = dataArray
       console.log("Printing Data Array")
       console.log(dataArray)
+
+      var pages = []
+      var counter = 0;
+
+      for(var i = 0 ; i < data.length ; i++) {
+        var thisPage = []
+        for (var j = 0 ; j < 20 ; j++) {
+
+          if (typeof(data[counter])=='undefined') {
+            counter++;
+            continue;
+          }
+          thisPage.push(data[counter]);
+          counter++;
+        }
+        if (thisPage.length > 0) {
+          pages.push(thisPage)
+        }
+      }
+
+      console.log("pages is")
+      console.log(pages)
+
+      console.log("pages length is")
+      console.log(pages.length)
+
+      var startPage = this.state.startPage;
+      var endPage = this.state.endPage;
+
+      if (pages.length < endPage) {
+        endPage = pages.length
+      }
+
 
       let active = 2;
       let items = [];
@@ -81,7 +113,7 @@ export default class Csv extends Component {
       this.pageItems.push(
         <Pagination.Prev><Button variant="light" style={{width:"100%"}} >Prev</Button></Pagination.Prev>
       )
-      for (let number = this.state.startPage; number <= this.state.endPage; number++) {
+      for (let number = this.state.startPage; number <= endPage; number++) {
         this.pageItems.push(
 
             <Button variant="light" style={{width:"100%"}}  onClick={() => this.getPageDetails(number)} >{number}</Button>
@@ -95,18 +127,9 @@ export default class Csv extends Component {
         <Pagination.Last><Button variant="light" style={{width:"100%"}} >Last</Button></Pagination.Last>
       );
 
-      var counter = 0;
 
-      var pages = []
 
-      for(var i = 0 ; i < data.length ; i++) {
-        var thisPage = []
-        for (var j = 0 ; j < 20 ; j++) {
-          thisPage.push(data[counter]);
-          counter++;
-        }
-        pages.push(thisPage)
-      }
+
 
       this.generateAnalyticsData(data)
 
@@ -114,7 +137,8 @@ export default class Csv extends Component {
         fileText: data,
         tableData: dataArray,
         pages: pages,
-        currentPage: pages[0]
+        currentPage: pages[0],
+        endPage: endPage
       })
     }
 
@@ -194,15 +218,19 @@ export default class Csv extends Component {
     }
 
     generateNextPage = () => {
-      var nextStartPage = this.state.startPage + 1;
-      var nextEndPage = this.state.endPage + 1;
+      if (this.state.endPage === this.state.pages.length){
+      }
+      else {
+        var nextStartPage = this.state.startPage + 1;
+        var nextEndPage = this.state.endPage + 1;
 
-      this.generatePaginationBar(nextStartPage, nextEndPage)
+        this.generatePaginationBar(nextStartPage, nextEndPage)
 
-      this.setState({
-        startPage: nextStartPage,
-        endPage: nextEndPage,
-      });
+        this.setState({
+          startPage: nextStartPage,
+          endPage: nextEndPage,
+        });
+      }
     }
 
     handleError = e => {
@@ -241,7 +269,7 @@ export default class Csv extends Component {
 
     getPageDetails = pageNum => {
       this.setState({
-        currentPage: this.state.pages[pageNum],
+        currentPage: this.state.pages[pageNum - 1],
       })
     }
 
@@ -281,7 +309,7 @@ export default class Csv extends Component {
           <CsvParse className="bottomPadded"
             keys={keys}
             onDataUploaded={this.handleData}
-            onError={this.handleEr00ror}
+            onError={this.handleError}
             render={onChange => <input type="file" onChange={onChange} />}
           />
           <Pagination>{this.pageItems}</Pagination>
