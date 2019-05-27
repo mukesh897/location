@@ -106,13 +106,8 @@ export default class Csv extends Component {
       let active = 2;
       let items = [];
       this.pageItems = []
-      this.pageItems.push(
-        <Pagination.First><Button variant="light" style={{width:"100%"}} >First</Button></Pagination.First>
 
-      )
-      this.pageItems.push(
-        <Pagination.Prev><Button variant="light" style={{width:"100%"}} >Prev</Button></Pagination.Prev>
-      )
+
       for (let number = this.state.startPage; number <= endPage; number++) {
         this.pageItems.push(
 
@@ -123,9 +118,7 @@ export default class Csv extends Component {
       this.pageItems.push(
         <Pagination.Next><Button variant="light" style={{width:"100%"}}  onClick={() => this.generateNextPage()}>Next</Button></Pagination.Next>
       );
-      this.pageItems.push(
-        <Pagination.Last><Button variant="light" style={{width:"100%"}} >Last</Button></Pagination.Last>
-      );
+
 
 
 
@@ -232,6 +225,8 @@ export default class Csv extends Component {
         });
       }
     }
+
+  
 
     handleError = e => {
 

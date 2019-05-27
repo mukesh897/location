@@ -87,6 +87,7 @@ class App extends React.Component {
     return(
 
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+        
         <Tab eventKey="home" title="Home">
           <Grid container spacing={2}>
             <Grid item xs={6} className="right-padded top-padded">
@@ -104,7 +105,7 @@ class App extends React.Component {
              </Grid>
            </Grid>
         </Tab>
-        <Tab eventKey="contact" title="Maps">
+        <Tab eventKey="contact" title="Analytics">
           <Grid container align='center'>
             <Grid item xs={12}>
               <Charts
