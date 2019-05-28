@@ -226,7 +226,7 @@ export default class Csv extends Component {
       }
     }
 
-  
+
 
     handleError = e => {
 
@@ -240,10 +240,7 @@ export default class Csv extends Component {
       this.pageItems = []
 
       this.pageItems = []
-      this.pageItems.push(
-        <Pagination.First><Button variant="light" style={{width:"100%"}} >First</Button></Pagination.First>
 
-      )
       this.pageItems.push(
         <Pagination.Prev><Button variant="light" style={{width:"100%"}} >Prev</Button></Pagination.Prev>
       )
@@ -257,9 +254,7 @@ export default class Csv extends Component {
       this.pageItems.push(
         <Pagination.Next onClick={() => this.generateNextPage()}><Button variant="light" style={{width:"100%"}} >Next</Button></Pagination.Next>
       );
-      this.pageItems.push(
-        <Pagination.Last><Button variant="light" style={{width:"100%"}} >Last</Button></Pagination.Last>
-      );
+      
     }
 
     getPageDetails = pageNum => {
